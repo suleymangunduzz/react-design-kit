@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 
-type Props = {
+const MyCounter = ({ value = 0 }: {
   value?: number;
-};
-
-const MyCounter = ({ value = 0 }: Props) => {
+}) => {
   const [counter, setCounter] = useState(value);
 
   const onMinus = () => {
