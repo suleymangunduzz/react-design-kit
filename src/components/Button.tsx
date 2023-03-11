@@ -1,24 +1,27 @@
 import React, { ReactNode } from "react";
+import styled from "styled-components";
+
+const SIZE_MAP = {
+  xSmall: "4px",
+  small: "8px",
+  medium: "12px",
+  large: "16px",
+  xLarge: "20px",
+} as const;
 
 type Props = {
   children: ReactNode | string;
   rounded?: boolean;
-  size: "small" | "medium" | "large";
+  size: keyof typeof SIZE_MAP;
 };
 
-const SIZE_MAP = {
-  small: "8px",
-  medium: "12px",
-  large: "16px",
-} as const;
+const StyledButton = styled.button<Omit<Props, "children">>`
+  border-radius: ${(props) => (props.rounded ? "15px" : "unset")};
+  padding: ${(props) => SIZE_MAP[props.size]};
+`;
 
 const Button = ({ children, rounded, size }: Props) => {
-  const style = {
-    borderRadius: rounded ? "15px" : "unset",
-    padding: SIZE_MAP[size],
-  };
-
-  return <button style={style}>{children}</button>;
+  return <StyledButton {...{ rounded, size }}>{children}</StyledButton>;
 };
 
 export default Button;
